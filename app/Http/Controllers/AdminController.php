@@ -104,6 +104,7 @@ class AdminController extends Controller
         $product->drink = $request->drink;
         $product->price = $request->price;
         $product->images = $request->images;
+
         $product->save();
         return redirect()->route('admin.index');
     }
