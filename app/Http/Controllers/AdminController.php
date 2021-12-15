@@ -49,7 +49,7 @@ class AdminController extends Controller
         $product = new Product;
             
         if($request->file('images')){
-        $image_name = $request->file('images')->store('storage','public');
+        $image_name = $request->file('images')->store('images','public');
         }
 
         $product->id = $request->id;
@@ -61,6 +61,8 @@ class AdminController extends Controller
         $product->images = $image_name;
 
         $product->save();
+        return redirect()->route('admin.index')
+        -> with('success','Add data success!');
     }
 
     /**
@@ -98,14 +100,22 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
+        $product->id= $request->id;
         $product->package = $request->package;
         $product->food = $request->food;
         $product->dessert = $request->dessert;
         $product->drink = $request->drink;
         $product->price = $request->price;
-        $product->images = $request->images;
+        
+        if($product->images && file_exists(storage_path('app/public/'. $product->images)))
+        {
+            \Storage::delete('public/'.$product->images);
+        }
+        $image_name = $request->file('images')->store('images','public');
+        $product->images = $image_name;
 
         $product->save();
+        
         return redirect()->route('admin.index');
     }
 

@@ -27,10 +27,6 @@
                             </div>
                         </form>
 
-                        <!--Panggil path users pada route-->
-                        <a href="/admin/create" class="btn btn-primary">Add Data</a> 
-                        <br><br>
-
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
